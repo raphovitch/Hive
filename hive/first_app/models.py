@@ -13,10 +13,13 @@ class UserProfileInfo(models.Model):
 
 
 class Tweet(models.Model):
+	title = models.CharField(max_length=140, unique=False)
 	text = models.CharField(max_length=140, unique=False)
 	date = models.DateField()
 	user = models.ForeignKey(UserProfileInfo, on_delete=models.CASCADE)
-	likes = models.ManyToManyField('UserProfileInfo', related_name='likes', blank=True)
+
+	liked_by = models.ManyToManyField('UserProfileInfo', related_name='likes', blank=True)
+
 
 	def __str__(self):
-		return self.user
+		return self.title
