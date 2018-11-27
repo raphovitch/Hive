@@ -5,5 +5,9 @@ app_name = 'first_app'
 
 urlpatterns = [
 	path('', views.index, name='homepage'),
+
 	path('home/', views.home, name='home'),
+
+	path('publish_a_tweet/', views.publish_a_tweet, name='publish_a_tweet'),
+
 ]
