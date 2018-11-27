@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Login Page{% endblock %}
+
+
+{% block content%}
+
+	{% if errors %}
+		<p>The username and password are not matching Biatchhhh.</p>
+	{% endif %}
+
+	<h1>Fill the Login form</h1>
+	<form enctype="multipart/form-data" method='POST'>
+		{% csrf_token %}
+		{{ login_form.as_p }}
+		<input type="submit" value='signup'>
+
+	</form>
+
+
+{%endblock%}
+
+
+
