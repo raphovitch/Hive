@@ -61,3 +61,22 @@ def signup(request):
 		'profile_form' : profile_form, 
 		'registered': registered
 		})
+
+@login_required
+def log_out(request):
+	logout(request)
+	return redirect('/first_app/', permanent=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+

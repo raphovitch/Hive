@@ -4,12 +4,18 @@ from django.http import HttpResponse, HttpResponseNotFound
 from first_app.forms import NewTweetForm, Tweet
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from first_app.models import UserProfileInfo
+from django.contrib.auth.models import User
 import datetime
-
 
 # Create your views here.
 def index(request):
-	return render(request, 'index.html')
+	
+	user = request.user
+	print(UserProfileInfo.objects.all())
+	userprofile = UserProfileInfo.objects.get(user=user)
+	return render(request, 'index.html', {'user': user, 'userprofile': userprofile})
+
 
 
 
