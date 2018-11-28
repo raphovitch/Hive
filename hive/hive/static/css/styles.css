@@ -29,7 +29,7 @@
 .inset {
 	width: 55px;
 	position: relative;
-	left:750px;
+	left:670px;
 	height: 55px;
 	border-radius: 50%;
 	box-shadow:
@@ -50,7 +50,7 @@
 
 .user-profile {
 	position: relative;
-	left: 770px;
+	left: 690px;
 	top: 15px;
 }
 

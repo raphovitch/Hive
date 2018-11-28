@@ -9,24 +9,18 @@ from django.contrib.auth.models import User
 import datetime
 
 # Create your views here.
-def index(request):
 	
-	user = request.user
-	print(user)
-	userprofile = UserProfileInfo.objects.get(user=user)
-	return render(request, 'index.html', {'user': user, 'userprofile': userprofile})
-
-
-
-
 def gets_lasts_tweets(n=10):
 	lasts_tweets = Tweet.objects.all().order_by('-date')[:n]
 	return lasts_tweets
 
 
 def home(request):
-	print(request.user)
-	return render(request, 'home.html',context={'list': gets_lasts_tweets(), 'logged_in': request.user})
+	if request.user.is_authenticated:
+		return render(request, 'home.html',context={'list': gets_lasts_tweets(), 'logged_in': True, 'user': request.user})
+	else:
+		return render(request, 'home.html', {'list': gets_lasts_tweets(), 'logged_in': False})
+	
 
 
 @login_required

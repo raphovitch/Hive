@@ -20,7 +20,7 @@ def log_in(request):
 			if user is not None:
 				login(request, user)
 				print('Logged In: {}'.format(user))
-				return redirect('/first_app/', permanent=True)
+				return redirect('/first_app/home/', permanent=True)
 			else:
 				errors = True
 	else:
