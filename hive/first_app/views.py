@@ -20,14 +20,14 @@ def index(request):
 
 
 def gets_lasts_tweets(n=10):
-	lasts_tweets ={
-	'list' : Tweet.objects.all().order_by('-date')[:n]
-	} 
+	lasts_tweets = Tweet.objects.all().order_by('-date')[:n]
 	return lasts_tweets
 
 
 def home(request):
-	return render(request, 'home.html',context=gets_lasts_tweets())
+	print(request.user)
+	return render(request, 'home.html',context={'list': gets_lasts_tweets(), 'logged_in': request.user})
+
 
 @login_required
 def publish_a_tweet(request, user_id):
