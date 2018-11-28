@@ -9,7 +9,7 @@ class UserProfileInfo(models.Model):
 	follows = models.ManyToManyField('UserProfileInfo', related_name='followed_by', symmetrical=False, blank=True)
 
 	def __str__(self):
-		return self.user.username 
+		return (self.user.username)
 
 
 class Tweet(models.Model):
