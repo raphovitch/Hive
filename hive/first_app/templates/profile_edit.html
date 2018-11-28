@@ -2,15 +2,36 @@
 {% block title %}Profile Edit Page{% endblock %}
 
 {% block content %}
+	<div class='edit_forms'>
+		<div class='single_edit_form'>
+			<h1>Fill the Edit Profile form</h1>
+			<form enctype="multipart/form-data" method='POST'>
+				{% if form_error %}
+					<div class='form_username_exists'>
+						<p>Sorry this username is already existing</p>
+					</div>
+				{% endif %}
+				{% csrf_token %}
+				{{ edit_form.as_p }}
+				<input type="submit" name='edit_profile' value='Edit Account'>
 
-	<h1>Fill the Edit Profile form</h1>
-	<form enctype="multipart/form-data" method='POST'>
-		{% csrf_token %}
-		{{ edit_form.as_p }}
-		<input type="submit" value='Edit Account'>
+			</form>
+		</div>
+		<div class='single_edit_form'>
+			<h1>Fill the Edit Password form</h1>
+			<form enctype="multipart/form-data" method='POST'>
+				{% if password_error %}
+					<div class='form_username_exists'>
+						<p>Sorry, The old password is not corresponding Biatchhhh</p>
+					</div>
+				{% endif %}
+				{% csrf_token %}
+				{{ password_form.as_p }}
+				<input type="submit" name='change_pass' value='Change Password'>
 
-	</form>
-
+			</form>
+		</div>
+	</div>
 
 
 {% endblock %}
