@@ -1,11 +1,12 @@
-from django.shortcuts import render
+
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound
-from first_app.forms import NewTweetForm
+from first_app.forms import NewTweetForm, Tweet
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from first_app.models import UserProfileInfo
 from django.contrib.auth.models import User
-
+import datetime
 
 # Create your views here.
 def index(request):
@@ -15,6 +16,18 @@ def index(request):
 	userprofile = UserProfileInfo.objects.get(user=user)
 	return render(request, 'index.html', {'user': user, 'userprofile': userprofile})
 
+
+
+
+def gets_lasts_tweets(n=10):
+	lasts_tweets ={
+	'list' : Tweet.objects.all().order_by('-date')[:n]
+	} 
+	return lasts_tweets
+
+
+def home(request):
+	return render(request, 'home.html',context=gets_lasts_tweets())
 
 @login_required
 def publish_a_tweet(request, user_id):
@@ -41,3 +54,4 @@ def publish_a_tweet(request, user_id):
 					print('Error - form is unvalid')
 
 		return render(request, 'publish_a_tweet.html', context={'form': form, 'user': user})
+
