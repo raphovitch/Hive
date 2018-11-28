@@ -3,9 +3,11 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from . import forms
+# from django.contrib.auth.models import AnonymousUser
 
 
 # Create your views here.
+
 
 def log_in(request):
 	errors = False
@@ -62,21 +64,11 @@ def signup(request):
 		'registered': registered
 		})
 
+
 @login_required
-def log_out(request):
+def logging_out(request):
+	print(request.user)
 	logout(request)
-	return redirect('/first_app/', permanent=True)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	print('logginngg ouutttttt........')
+	return redirect('/login_app/login/')
+	

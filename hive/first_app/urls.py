@@ -10,4 +10,6 @@ urlpatterns = [
 
 	path('publish_a_tweet/', views.publish_a_tweet, name='publish_a_tweet'),
 
+	path('edit_profile/', views.edit_page, name='edit_profile'),
+
 ]

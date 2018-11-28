@@ -1,7 +1,7 @@
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound
-from first_app.forms import NewTweetForm
+from first_app.forms import NewTweetForm, ProfileEditForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from first_app.models import UserProfileInfo, Tweet
@@ -12,7 +12,7 @@ import datetime
 def index(request):
 	
 	user = request.user
-	print(UserProfileInfo.objects.all())
+	print(user)
 	userprofile = UserProfileInfo.objects.get(user=user)
 	return render(request, 'index.html', {'user': user, 'userprofile': userprofile})
 
@@ -54,4 +54,44 @@ def publish_a_tweet(request, user_id):
 					print('Error - form is unvalid')
 
 		return render(request, 'publish_a_tweet.html', context={'form': form, 'user': user})
+
+
+@login_required
+def edit_page(request):
+	if request.method == 'POST':
+		edit_form = ProfileEditForm(request.POST)
+		if edit_form.is_valid():
+			clean_data = edit_form.clean()
+			pass
+			# UserProfileInfo.objects.
+
+
+	else:
+		user = request.user
+		userprofile = UserProfileInfo.objects.get(user=user)
+		default_data = {'email': user.email, 'username': user.username, 'bio': userprofile.bio}
+		edit_form = ProfileEditForm(default_data, label_suffix=': ')
+
+	return render(request, 'profile_edit.html', {
+			'edit_form': edit_form,
+		})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
