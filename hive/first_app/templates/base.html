@@ -40,7 +40,7 @@
 					<a href="{% url 'login_app:logging_out' %}" class="btn btn-danger btn-lg active " role="button" aria-pressed="true">Logout</a>
 				</div>
 				<div class="button-signup inset">
-					<img src="{% static 'images/bill.png'%}" >
+					<img src="{{user.userprofileinfo.profile_pic.url}}" >
 				</div>
 				<div class="user-profile">
 					<p>{{user.username}} </p>
