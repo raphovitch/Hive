@@ -65,7 +65,7 @@ def signup(request):
 @login_required
 def log_out(request):
 	logout(request)
-	return redirect('/first_app/', permanent=True)
+	return redirect('/first_app/home/', permanent=True)
 
 
 
