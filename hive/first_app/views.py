@@ -1,10 +1,10 @@
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound
-from first_app.forms import NewTweetForm, Tweet
+from first_app.forms import NewTweetForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from first_app.models import UserProfileInfo
+from first_app.models import UserProfileInfo, Tweet
 from django.contrib.auth.models import User
 import datetime
 
