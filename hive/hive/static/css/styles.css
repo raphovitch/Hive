@@ -29,11 +29,7 @@
 .inset {
 	width: 55px;
 	position: relative;
-<<<<<<< HEAD
-	left:680px;
-=======
 	left:670px;
->>>>>>> acd9da4dfbdef40de6a8f60f3d90117bb8ce280b
 	height: 55px;
 	border-radius: 50%;
 	box-shadow:
@@ -54,11 +50,7 @@
 
 .user-profile {
 	position: relative;
-<<<<<<< HEAD
-	left: 700px;
-=======
 	left: 690px;
->>>>>>> acd9da4dfbdef40de6a8f60f3d90117bb8ce280b
 	top: 15px;
 }
 
