@@ -118,13 +118,8 @@ def feed_page(request):
 	follows = userprofile.follows.all()
 
 	tweets_of_user = Tweet.objects.all().order_by('-id').filter(user__in=follows)
-	all_tweets = []
 	
-	for tweet in tweets_of_user:
-		all_tweets.append(tweet)
-	
-	
-	return render(request, 'feed_page.html', context={'list': all_tweets, 'logged_in': True, 'user': user})
+	return render(request, 'feed_page.html', context={'list': tweets_of_user, 'logged_in': True, 'user': user})
 
 
 
