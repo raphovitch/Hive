@@ -3,32 +3,31 @@
 
 
 {% block content %}
-<div style= "position:relative;right: -38%">
-<h1>The lasts Tweets are : </h1>
-</div>
-<br>
-			
-  {% for tweet in list %}
+	<div style= "position:relative;right: -38%">
+		<h1>The lasts Tweets are : </h1>
+	</div>
 
-  <div class="card border-info mx-auto" style="max-width: 50rem;">
-	  			<div class="card-header"> 
-	  				Tweet id : {{tweet.id}}
-				</div>
+	<br>
+				
+	{% for tweet in list %}
 
-	  			<div class="card-body">
-				    <h5 class="card-title">
-				    	{{tweet.text}}	
-					</h5>
-				    <p class="card-text">Tweet Date : {{tweet.date}} </p>
-					By {{tweet.user.user.username}} 
-	  			</div>
-			</div>
+	<div class="card border-info mx-auto" style="max-width: 50rem;">
+		<div class="card-header"> 
+			Tweet id : {{tweet.id}}
+		</div>
+
+		<div class="card-body">
+			<h5 class="card-title"> {{tweet.text}} </h5>
+			<p class="card-text">Tweet Date : {{tweet.date}} </p>
+			By {{tweet.user.user.username}} 
+		</div>
+	</div>
 
 
-  <div >
-  	 <h3>{{tweet.user.name}}</h3>
-  	<p>
-  </div>
-  {% endfor %}
+	<div>
+		<h3>{{tweet.user.name}}</h3>
+		<p>
+	</div>
+	{% endfor %}
 
 {% endblock %}

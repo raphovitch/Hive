@@ -2,24 +2,53 @@
 {% block title %}Usename of User{% endblock%}
 
 {% block content %}
-<div class='profile_info'>
-	<h3 style='text-align: center; margin-top: 3%;'> {{ profile_info.user.username }} </h3>
-	<br>
-	
-	<br>
-	HERE THE BUTTON FOLLOW OR UNFOLLOW
-	<img src="{{profile_info.profile_pic.url}}" >
-	<br>
-	<div class='profile-bio'>
-		{{ profile_info.bio}}
+<div class="profile_page">
+
+	<div class='profile_info'>
+		<h3 style='text-align: center; margin-top: 3%;'> {{ profile_info.user.username }} </h3>
+		<br>
+		
+		<br>
+		HERE THE BUTTON FOLLOW OR UNFOLLOW
+		<img src="{{profile_info.profile_pic.url}}" >
+		<br>
+		<div class='profile-bio'>
+			{{ profile_info.bio}}
+		</div>
+
+		<br>
+		Here we are going to put his followers
+		<br>
+		<br>
+		Here we are going to put the guys that he is following.
+
+
 	</div>
 
-	<br>
-	Here we are going to put his followers
-	<br>
-	<br>
-	Here we are going to put the guys that he is following.
+	<div class='tweets_user'>
+		{% for tweet in tweets %}
 
+		<div class="card border-info mx-auto" style="max-width: 50rem;">
+			<div class="card-header"> 
+				Tweet id : {{tweet.id}}
+			</div>
+
+			<div class="card-body">
+				<h5 class="card-title"> {{tweet.text}} </h5>
+				<p class="card-text">Tweet Date : {{tweet.date}} </p>
+				By {{tweet.user.user.username}} 
+			</div>
+		</div>
+
+
+		<div>
+			<h3>{{tweet.user.name}}</h3>
+			<p>
+		</div>
+
+
+		{% endfor %}
+	</div>
 
 </div>
 {% endblock %}
