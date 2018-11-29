@@ -1,1 +1,17 @@
-publish_a_tweet.html
+{% extends 'base.html' %}
+{% block title %}Post New Tweet{% endblock %}
+
+{% block content %}
+	<div class='edit_forms'>
+		<div class='single_edit_form'>
+			<h1>Write a new Tweet</h1>
+			<form enctype="multipart/form-data" method='POST'>
+				{% csrf_token %}
+				{{ tweet_form.as_p }}
+				<input type="submit" name='post_a_new_tweet' value='Post Tweet'>
+
+			</form>
+		</div>
+
+
+{% endblock %}

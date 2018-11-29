@@ -14,12 +14,12 @@
 
 .button-login {
 	position: relative;
-	left : 1200px;
+	left : 430%;
 }
 
 .button-signup {
 	position: relative;
-	left : 970px;
+	left : 355%;
 }
 
 .btn-danger {
@@ -86,6 +86,11 @@
     clear: both;
 }
 
+.button-follow{
+	position: relative;
+	left : 75%;
+	bottom: 50px;
+}
 
 .profile_info {
 	border-style: solid;
@@ -125,7 +130,8 @@
 
 
 
-
-
+.btn-primary {
+	background-color: #16a085 !important;
+}
 
 
