@@ -110,6 +110,23 @@ def edit_page(request):
 		})
 
 
+@login_required
+def feed_page(request):
+	
+	user = request.user
+	userprofile = UserProfileInfo.objects.get(user=user)
+	follows = userprofile.follows.all()
+
+	tweets_of_user = Tweet.objects.all().order_by('-id').filter(user__in=follows)
+	all_tweets = []
+	
+	for tweet in tweets_of_user:
+		all_tweets.append(tweet)
+	
+	
+	return render(request, 'feed_page.html', context={'list': all_tweets, 'logged_in': True, 'user': user})
+
+
 
 
 
