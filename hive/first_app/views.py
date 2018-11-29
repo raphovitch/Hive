@@ -1,6 +1,5 @@
-
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from first_app.forms import NewTweetForm, ProfileEditForm, PasswordEditForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -9,11 +8,28 @@ from django.contrib.auth.models import User
 import datetime
 from django.contrib.auth.hashers import check_password, make_password
 
-# Create your views here.
+
+def get_all_users(username):
+	all_users = UserProfileInfo.objects.exclude(user__username = username)
+	return all_users
+	
 	
 def gets_lasts_tweets(n=10):
 	lasts_tweets = Tweet.objects.all().order_by('-date')[:n]
 	return lasts_tweets
+
+
+# Create your views here.
+
+def all_users(request):
+	if request.user.is_authenticated:
+		user_p = UserProfileInfo.objects.get(user= request.user)
+		return render(request, 'all_users.html',context={'list': get_all_users(request.user.username), 'user_p':user_p, 'list_followers': user_p.follows.all()}) 
+	else:
+		return render(request, 'all_users.html',context={'list': get_all_users(request.user.username)})
+
+# Create your views here.
+	
 
 
 def home(request):
@@ -120,6 +136,50 @@ def feed_page(request):
 	tweets_of_user = Tweet.objects.all().order_by('-id').filter(user__in=follows)
 	
 	return render(request, 'feed_page.html', context={'list': tweets_of_user, 'logged_in': True, 'user': user})
+
+@login_required
+def follow_user(request,username):
+	user1 = request.user
+	user = UserProfileInfo.objects.get(user= user1)
+	user_to_follow = UserProfileInfo.objects.get(user__username= username)
+	user.follows.add(user_to_follow)
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def unfollow_user(request,username):
+	user1 = request.user
+	user = UserProfileInfo.objects.get(user= user1)
+	user_to_unfollow = UserProfileInfo.objects.get(user__username= username)
+	user.follows.remove(user_to_unfollow)
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+
+
+def all_followees(request,username):
+		user1 = UserProfileInfo.objects.get(user__username= username)
+		list_user_followees = user1.follows.all()
+		return render(request, 'all_followees.html',context={'list': list_user_followees, 'user1':user1})
+
+def all_followers(request,username):
+	user1 = UserProfileInfo.objects.get(user__username= username)
+	list_of_all_users = UserProfileInfo.objects.exclude(user__username = username) 
+	list_of_followers = [user for user in list_of_all_users if user1 in user.follows.all()]
+  
+  return render(request, 'all_followers.html',context={'list': list_of_followers, 'user1':user1, 'list_followers': user1.follows.all()})
+
+  
+def profile_page(request, username):
+	profile_info = UserProfileInfo.objects.get(user__username=username)
+	print(profile_info.bio)
+	if request.user.is_authenticated:
+
+
+		return render(request, 'profile.html', {'logged_in': True, 'user': request.user, 'profile_info': profile_info})
+
+
+	return render(request, 'profile.html', {'logged_in': False, 'profile_info': profile_info})
 
 
 

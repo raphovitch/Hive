@@ -1,0 +1,25 @@
+{% extends 'base.html'%}
+{% block title %}Usename of User{% endblock%}
+
+{% block content %}
+<div class='profile_info'>
+	<h3 style='text-align: center; margin-top: 3%;'> {{ profile_info.user.username }} </h3>
+	<br>
+	
+	<br>
+	HERE THE BUTTON FOLLOW OR UNFOLLOW
+	<img src="{{profile_info.profile_pic.url}}" >
+	<br>
+	<div class='profile-bio'>
+		{{ profile_info.bio}}
+	</div>
+
+	<br>
+	Here we are going to put his followers
+	<br>
+	<br>
+	Here we are going to put the guys that he is following.
+
+
+</div>
+{% endblock %}

@@ -14,12 +14,12 @@
 
 .button-login {
 	position: relative;
-	left : 1200px;
+	left : 430%;
 }
 
 .button-signup {
 	position: relative;
-	left : 970px;
+	left : 355%;
 }
 
 .btn-danger {
@@ -86,9 +86,52 @@
     clear: both;
 }
 
+.button-follow{
+	position: relative;
+	left : 75%;
+	bottom: 50px;
+}
+
+.profile_info {
+	border-style: solid;
+	/*content: "";
+    display: table;
+    clear: both;*/
+    width: 25%;
+    /*The height must be changed when finished to pourcentage I will have to find a way to fix it.*/
+    height: 600px;
+    margin-left: 2%;
+    margin-top: 2%; 
+}
+
+.profile_info img {
+	border-radius: 50%;
+	border-color: #B8B8B8;
+	border-width: 6px;
+	border-style: solid;
+	width: 50%;
+	height: 30%;
+	margin-left: 25%;
+	margin-right: 25%;
+
+}
+
+
+.profile-bio {
+	overflow: scroll;
+    max-height: 10%;
+    border: red solid 2px;
+    margin: 5%;
+    background-color: #E0E0E0; 
+} 
 
 
 
 
+
+
+.btn-primary {
+	background-color: #16a085 !important;
+}
 
 

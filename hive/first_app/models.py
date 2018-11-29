@@ -9,7 +9,7 @@ class UserProfileInfo(models.Model):
 	follows = models.ManyToManyField('UserProfileInfo', related_name='followed_by', symmetrical=False, blank=True)
 
 	def __str__(self):
-		return (self.user.username)
+		return (self.user.username +' '+ str(self.id))
 
 
 class Tweet(models.Model):
@@ -17,7 +17,6 @@ class Tweet(models.Model):
 	text = models.CharField(max_length=140, unique=False)
 	date = models.DateField()
 	user = models.ForeignKey(UserProfileInfo, on_delete=models.CASCADE)
-
 	liked_by = models.ManyToManyField('UserProfileInfo', related_name='likes', blank=True)
 
 
