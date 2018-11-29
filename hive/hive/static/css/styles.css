@@ -59,3 +59,36 @@
 	left: 1000px;
 	top: 5px;
 }
+
+/* For the message of error in the edit profile page for a username that is already existing. */
+.form_username_exists p {
+	display: table-cell;
+	border-style: solid;
+	border-color: red;
+	border-width: 3px;
+	padding: 5px;
+}
+
+.single_edit_form {
+    float: left;
+    width: 40%;
+    margin: 2% 5%;
+    padding: 1%;
+    border-style: inset;
+    border-width: 5px;
+    border-color: blue;
+}
+
+/* Clear floats after the columns */
+.edit_forms:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+
+
+
+
+
