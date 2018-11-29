@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 
 class NewTweetForm(forms.Form):
+	title = forms.CharField(max_length=140)
 	text = forms.CharField(max_length=140, widget=forms.Textarea)
 
 

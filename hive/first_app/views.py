@@ -31,20 +31,21 @@ def publish_a_tweet(request):
 	userprofile = UserProfileInfo.objects.get(user=user)
 
 	if request.method == 'POST':
-		form = NewTweetForm(request.POST)
+		tweet_form = NewTweetForm(request.POST)
 		
-		if form.is_valid():
-			text = form.cleaned_data['text']
-			tweet = Tweet(text=text, user=userprofile, date=datetime.datetime.now())
+		if tweet_form.is_valid():
+			text = tweet_form.cleaned_data['text']
+			title = tweet_form.cleaned_data['title']
+			tweet = Tweet(title=title, text=text, user=userprofile, date=datetime.datetime.now())
 			tweet.save()
 			return redirect('/first_app/home')
 		
 		else:
-			print('Error - form is unvalid')
+			print('Error - tweet_form is unvalid')
 	else:
-		form = NewTweetForm()
+		tweet_form = NewTweetForm()
 
-	return render(request, 'publish_a_tweet.html', context={'form': form, 'user': user})
+	return render(request, 'publish_a_tweet.html', context={'tweet_form': tweet_form, 'user': user})
 
 
 @login_required

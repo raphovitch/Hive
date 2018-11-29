@@ -7,7 +7,7 @@
 			<h1>Write a new Tweet</h1>
 			<form enctype="multipart/form-data" method='POST'>
 				{% csrf_token %}
-				{{ form.as_p }}
+				{{ tweet_form.as_p }}
 				<input type="submit" name='post_a_new_tweet' value='Post Tweet'>
 
 			</form>
