@@ -31,26 +31,32 @@ def get_all_likers(tweet_id):
 # Create your views here.
 
 def all_tweets(request):
-	#flag = False
 	if request.user.is_authenticated:
-		#user = request.user
-		user_p = UserProfileInfo.objects.get(user= request.user)
-		#for tweet in get_all_tweets():
-			#liked_by = tweet.liked_by.all()
-			#is_inside = Tweet.objects.all().filter(user__in = liked_by)
-			#if len(is_inside)!= 0:
-				#flag = True
-		all_tweets = get_all_tweets()
 
-		#ajout de theo
-		sorted_list_of_likers = []
-		for tweet in all_tweets:
-			sorted_list_of_likers.append(get_all_likers(tweet_id=tweet.id))
-		#fin d'ajout
-			return render(request, 'all_tweets.html',context={'list': all_tweets, 'user_p':user_p, 'logged_in': True,'all_likers_list': sorted_list_of_likers})
+		user_p = UserProfileInfo.objects.get(user=request.user)
+		
+		tweets = [tweet for tweet in Tweet.objects.all()]
+
+		# This is for all likes
+		all_likes = []
+		for tweet in tweets:
+			if user_p in tweet.liked_by.all():
+				print(tweet)
+				all_likes.append(True)
+			else:
+				print(tweet)
+				all_likes.append(False)
+
+		# range_list = [index for index in range(len(all_likes))]
+		# print(range_list)
+
+		my_list = zip(tweets, all_likes)
+
+
+		return render(request, 'all_tweets.html',context={'my_list': my_list, 'user_p':user_p, 'logged_in': True, 'user': request.user})
 			
-	else:
-		return render(request, 'all_tweets.html',context={'list': get_all_tweets(), 'logged_in': False, 'list_likers':all_likers})
+
+	return render(request, 'all_tweets.html',context={'tweets': get_all_tweets(), 'logged_in': False,})
 
 
 def all_users(request):
