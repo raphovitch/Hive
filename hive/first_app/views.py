@@ -10,11 +10,22 @@ import datetime
 from django.contrib.auth.hashers import check_password, make_password
 
 # Create your views here.
+
+def get_all_users(username):
+	all_users = UserProfileInfo.objects.exclude(user__username = username)
+	return all_users
+	
 	
 def gets_lasts_tweets(n=10):
 	lasts_tweets = Tweet.objects.all().order_by('-date')[:n]
 	return lasts_tweets
 
+def all_users(request):
+	if request.user.is_authenticated:
+		user_p = UserProfileInfo.objects.get(user= request.user)
+		return render(request, 'all_users.html',context={'list': get_all_users(request.user.username), 'user_p':user_p, 'list_followers': user_p.follows.all()}) 
+	else:
+		return render(request, 'all_users.html',context={'list': get_all_users(request.user.username)})
 
 def home(request):
 	if request.user.is_authenticated:
@@ -109,6 +120,23 @@ def edit_page(request):
 			'password_error': password_error
 		})
 
+
+@login_required
+def follow_user(request,username):
+	user1 = request.user
+	user = UserProfileInfo.objects.get(user= user1)
+	user_to_follow = UserProfileInfo.objects.get(user__username= username)
+	user.follows.add(user_to_follow)
+	return redirect('/first_app/all_users/')
+
+
+@login_required
+def unfollow_user(request,username):
+	user1 = request.user
+	user = UserProfileInfo.objects.get(user= user1)
+	user_to_unfollow = UserProfileInfo.objects.get(user__username= username)
+	user.follows.remove(user_to_unfollow)
+	return redirect('/first_app/all_users/')
 
 
 
