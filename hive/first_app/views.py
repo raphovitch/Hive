@@ -45,7 +45,7 @@ def publish_a_tweet(request):
 	else:
 		tweet_form = NewTweetForm()
 
-	return render(request, 'publish_a_tweet.html', context={'tweet_form': tweet_form, 'user': user})
+	return render(request, 'publish_a_tweet.html', context={'tweet_form': tweet_form, 'user': user, 'logged_in': True})
 
 
 @login_required
