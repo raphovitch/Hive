@@ -10,7 +10,12 @@
 		
 		<br>
 		HERE THE BUTTON FOLLOW OR UNFOLLOW
-		<img src="{{profile_info.profile_pic.url}}" >
+
+		{% if not profile_info.profile_pic %}
+			<img src="/static/images/no-picture.png">
+		{% else %}
+			<img src="{{user.userprofileinfo.profile_pic.url}}">
+		{% endif %}
 		<br>
 		<div class='profile-bio'>
 			{{ profile_info.bio}}
