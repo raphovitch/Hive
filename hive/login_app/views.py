@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from . import forms
+from PIL import Image
 # from django.contrib.auth.models import AnonymousUser
 
 
@@ -46,6 +47,9 @@ def signup(request):
 
 			if 'profile_pic' in request.FILES:
 				profile.profile_pic = request.FILES['profile_pic']
+			else:
+				profile.profile_pic = Image.open("hive/static/images/no-picture.png")
+				profile.profile_pic.save(filename, quality=60)
 
 			profile.save()
 			registered = True

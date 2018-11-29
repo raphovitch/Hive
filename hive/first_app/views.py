@@ -169,7 +169,7 @@ def all_followers(request,username):
 	list_of_all_users = UserProfileInfo.objects.exclude(user__username = username) 
 	list_of_followers = [user for user in list_of_all_users if user1 in user.follows.all()]
   
-  return render(request, 'all_followers.html',context={'list': list_of_followers, 'user1':user1, 'list_followers': user1.follows.all()})
+	return render(request, 'all_followers.html',context={'list': list_of_followers, 'user1':user1, 'list_followers': user1.follows.all()})
 
   
 def profile_page(request, username):
