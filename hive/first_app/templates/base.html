@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 {% load staticfiles %}
 <html>
 <head>
@@ -40,7 +40,12 @@
 					<a href="{% url 'login_app:logging_out' %}" class="btn btn-danger btn-lg active " role="button" aria-pressed="true">Logout</a>
 				</div>
 				<div class="button-signup inset">
+					{% if not user.userprofileinfo.profile_pic %}
+						<img src="{% static 'images/no-picture.png' %}" >
+					{% else%}
 					<img src="{{user.userprofileinfo.profile_pic.url}}" >
+					{% endif %}
+
 				</div>
 				<div class="user-profile">
 					<p>{{user.username}} </p>
