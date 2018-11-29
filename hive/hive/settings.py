@@ -137,3 +137,6 @@ STATICFILES_DIRS = [
 ]
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
+
+LOGIN_URL = '/login_app/login'
+LOGIN_REDIRECT_URL='/path/to/redirecturl'
