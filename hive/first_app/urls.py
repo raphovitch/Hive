@@ -7,5 +7,6 @@ urlpatterns = [
 	path('home/', views.home, name='home'),
 	path('publish_a_tweet/', views.publish_a_tweet, name='publish_a_tweet'),
 	path('edit_profile/', views.edit_page, name='edit_profile'),
-
+	path('all_users/', views.all_users, name='all_users'),
+	path('follow_user/<username>', views.follow_user, name='follow_user'),
 ]
