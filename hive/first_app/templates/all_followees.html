@@ -1,0 +1,35 @@
+{% extends 'base.html'%}
+{% block title %}Followees{% endblock%}
+
+
+{% block content %}
+<div style= "position:relative;right: -38%">
+<h1>Here are all Followees of {{user1.user.username}} : </h1>
+</div>
+<br>
+			
+  {% for followee in list %}
+
+  <div class="card border-info mx-auto" style="max-width: 50rem;">
+	  			<div class="card-header"> 
+	  				followe id : {{followee.user.id}}
+				</div>
+
+	  			<div class="card-body">
+				    <h5 class="card-title">
+				    	 {{followee.user.username}}
+					</h5>
+	  			</div>
+
+	  			<div class="button-follow">
+					<a href="{% url 'first_app:unfollow_user' followee.user.username%}" class="btn btn-primary btn-lg active " role="button" aria-pressed="true">UnFollow</a>
+				</div>
+			</div>
+
+
+  <div >
+  	<p>
+  </div>
+  {% endfor %}
+
+{% endblock %}
