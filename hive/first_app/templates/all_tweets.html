@@ -9,6 +9,7 @@
 <br>
 			
   {% for tweet in list %}
+  
 
   <div class="card border-info mx-auto" style="max-width: 50rem;">
 	  			<div class="card-header"> 
@@ -23,16 +24,17 @@
 	  			</div>
 
 				{% if logged_in %}
-				{% if user_p in all_likers %}
+						{% if user_p in all_likers_list.{{forloop.counter}} %}
+				  			<div class="button-follow">
+								<a href="{% url 'first_app:dislike_tweet' tweet.id%}" class="btn btn-primary btn-lg active " role="button" aria-pressed="true">DisLike</a>
+							</div>
 
-	  			<div class="button-follow">
-					<a href="" class="btn btn-primary btn-lg active " role="button" aria-pressed="true">DisLike</a>
-				</div>
-				{% else %}
-				<div class="button-follow">
-					<a href="{% url 'first_app:like_tweet' tweet.id%}" class="btn btn-primary btn-lg active " role="button" aria-pressed="true">Like</a>
-				</div>
-				{% endif %}
+						{% else %}
+							<div class="button-follow">
+								<a href="{% url 'first_app:like_tweet' tweet.id%}" class="btn btn-primary btn-lg active " role="button" aria-pressed="true">Like</a>
+							</div>
+
+						{% endif %}
 				{% endif %}
 	</div>
 

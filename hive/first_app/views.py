@@ -22,6 +22,11 @@ def get_all_tweets():
 	all_tweets = Tweet.objects.all()
 	return all_tweets
 
+def get_all_likers(tweet_id):
+	tweet = Tweet.objects.get(id= tweet_id)
+	all_likers = tweet.liked_by.all()
+	return all_likers
+
 
 # Create your views here.
 
@@ -30,11 +35,19 @@ def all_tweets(request):
 	if request.user.is_authenticated:
 		#user = request.user
 		user_p = UserProfileInfo.objects.get(user= request.user)
-		#liked_by = 
-		#is_inside = Tweet.objects.all().filter(user__in = liked_by)
-		#if len(is_inside)!= 0:
-			#flag = True
-		return render(request, 'all_tweets.html',context={'list': get_all_tweets(), 'user_p':user_p, 'logged_in': True})
+		#for tweet in get_all_tweets():
+			#liked_by = tweet.liked_by.all()
+			#is_inside = Tweet.objects.all().filter(user__in = liked_by)
+			#if len(is_inside)!= 0:
+				#flag = True
+		all_tweets = get_all_tweets()
+
+		#ajout de theo
+		sorted_list_of_likers = []
+		for tweet in all_tweets:
+			sorted_list_of_likers.append(get_all_likers(tweet_id=tweet.id))
+		#fin d'ajout
+			return render(request, 'all_tweets.html',context={'list': all_tweets, 'user_p':user_p, 'logged_in': True,'all_likers_list': sorted_list_of_likers})
 			
 	else:
 		return render(request, 'all_tweets.html',context={'list': get_all_tweets(), 'logged_in': False, 'list_likers':all_likers})
@@ -207,11 +220,7 @@ def dislike_tweet(request,tweet_id):
 	tweet_to_dislike.liked_by.remove(user)
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-
-def all_likes(request, tweet_id):
-	tweet = Tweet.objects.get(id= tweet_id)
-	all_likers = tweet.liked_by.all()
-	return render(request, 'all_tweets.html',context={'all_likers': all_likers})
+	
 
 
 
