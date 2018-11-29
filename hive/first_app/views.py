@@ -19,6 +19,11 @@ def gets_lasts_tweets(n=10):
 	return lasts_tweets
 
 
+def get_tweets_of_user(profile_info_id):
+	tweets = Tweet.objects.filter(user=profile_info_id)
+	
+	return tweets
+
 # Create your views here.
 
 def all_users(request):
@@ -27,9 +32,6 @@ def all_users(request):
 		return render(request, 'all_users.html',context={'list': get_all_users(request.user.username), 'user_p':user_p, 'list_followers': user_p.follows.all()}) 
 	else:
 		return render(request, 'all_users.html',context={'list': get_all_users(request.user.username)})
-
-# Create your views here.
-	
 
 
 def home(request):
@@ -172,14 +174,14 @@ def all_followers(request,username):
   
 def profile_page(request, username):
 	profile_info = UserProfileInfo.objects.get(user__username=username)
+	profile_info_id = profile_info.user.id 
 	print(profile_info.bio)
+
 	if request.user.is_authenticated:
+		return render(request, 'profile.html', {'logged_in': True, 'user': request.user, 'profile_info': profile_info, 'tweets': get_tweets_of_user(profile_info_id)})
 
 
-		return render(request, 'profile.html', {'logged_in': True, 'user': request.user, 'profile_info': profile_info})
-
-
-	return render(request, 'profile.html', {'logged_in': False, 'profile_info': profile_info})
+	return render(request, 'profile.html', {'logged_in': False, 'profile_info': profile_info, 'tweets': get_tweets_of_user(profile_info_id)})
 
 
 

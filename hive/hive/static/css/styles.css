@@ -94,9 +94,7 @@
 
 .profile_info {
 	border-style: solid;
-	/*content: "";
-    display: table;
-    clear: both;*/
+	float: left;
     width: 25%;
     /*The height must be changed when finished to pourcentage I will have to find a way to fix it.*/
     height: 600px;
@@ -126,12 +124,29 @@
 } 
 
 
-
-
-
-
 .btn-primary {
 	background-color: #16a085 !important;
 }
+
+
+.profile_page:after {
+	content: "";
+    display: table;
+    clear: both;
+}
+
+
+.tweets_user {
+	padding-top: 2%; 
+	overflow: scroll;
+    max-height: 700px;
+    
+}
+
+
+
+
+
+
 
 
