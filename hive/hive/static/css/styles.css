@@ -71,7 +71,12 @@
 
 .single_edit_form {
     float: left;
-    width: 50%;
+    width: 40%;
+    margin: 2% 5%;
+    padding: 1%;
+    border-style: inset;
+    border-width: 5px;
+    border-color: blue;
 }
 
 /* Clear floats after the columns */
