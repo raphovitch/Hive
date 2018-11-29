@@ -127,6 +127,17 @@ def edit_page(request):
 
 
 @login_required
+def feed_page(request):
+	
+	user = request.user
+	userprofile = UserProfileInfo.objects.get(user=user)
+	follows = userprofile.follows.all()
+
+	tweets_of_user = Tweet.objects.all().order_by('-id').filter(user__in=follows)
+	
+	return render(request, 'feed_page.html', context={'list': tweets_of_user, 'logged_in': True, 'user': user})
+
+@login_required
 def follow_user(request,username):
 	user1 = request.user
 	user = UserProfileInfo.objects.get(user= user1)
@@ -169,6 +180,7 @@ def profile_page(request, username):
 
 
 	return render(request, 'profile.html', {'logged_in': False, 'profile_info': profile_info})
+
 
 
 
