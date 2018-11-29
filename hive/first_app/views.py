@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 import datetime
 from django.contrib.auth.hashers import check_password, make_password
 
+
 def get_all_users(username):
 	all_users = UserProfileInfo.objects.exclude(user__username = username)
 	return all_users
@@ -26,6 +27,10 @@ def all_users(request):
 		return render(request, 'all_users.html',context={'list': get_all_users(request.user.username), 'user_p':user_p, 'list_followers': user_p.follows.all()}) 
 	else:
 		return render(request, 'all_users.html',context={'list': get_all_users(request.user.username)})
+
+# Create your views here.
+	
+
 
 def home(request):
 	if request.user.is_authenticated:
@@ -148,11 +153,25 @@ def all_followees(request,username):
 
 def all_followers(request,username):
 	user1 = UserProfileInfo.objects.get(user__username= username)
-	list_of_all_users = UserProfileInfo.objects.exclude(user__username = username)
-
+	list_of_all_users = UserProfileInfo.objects.exclude(user__username = username) 
 	list_of_followers = [user for user in list_of_all_users if user1 in user.follows.all()]
+  
+  return render(request, 'all_followers.html',context={'list': list_of_followers, 'user1':user1, 'list_followers': user1.follows.all()})
 
-	return render(request, 'all_followers.html',context={'list': list_of_followers, 'user1':user1, 'list_followers': user1.follows.all()})
+  
+def profile_page(request, username):
+	profile_info = UserProfileInfo.objects.get(user__username=username)
+	print(profile_info.bio)
+	if request.user.is_authenticated:
+
+
+		return render(request, 'profile.html', {'logged_in': True, 'user': request.user, 'profile_info': profile_info})
+
+
+	return render(request, 'profile.html', {'logged_in': False, 'profile_info': profile_info})
+
+
+
 
 
 
