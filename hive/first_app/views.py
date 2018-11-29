@@ -18,8 +18,27 @@ def gets_lasts_tweets(n=10):
 	lasts_tweets = Tweet.objects.all().order_by('-date')[:n]
 	return lasts_tweets
 
+def get_all_tweets():
+	all_tweets = Tweet.objects.all()
+	return all_tweets
+
 
 # Create your views here.
+
+def all_tweets(request):
+	#flag = False
+	if request.user.is_authenticated:
+		#user = request.user
+		user_p = UserProfileInfo.objects.get(user= request.user)
+		#liked_by = 
+		#is_inside = Tweet.objects.all().filter(user__in = liked_by)
+		#if len(is_inside)!= 0:
+			#flag = True
+		return render(request, 'all_tweets.html',context={'list': get_all_tweets(), 'user_p':user_p, 'logged_in': True})
+			
+	else:
+		return render(request, 'all_tweets.html',context={'list': get_all_tweets(), 'logged_in': False, 'list_likers':all_likers})
+
 
 def all_users(request):
 	if request.user.is_authenticated:
@@ -156,7 +175,7 @@ def all_followers(request,username):
 	list_of_all_users = UserProfileInfo.objects.exclude(user__username = username) 
 	list_of_followers = [user for user in list_of_all_users if user1 in user.follows.all()]
   
-  return render(request, 'all_followers.html',context={'list': list_of_followers, 'user1':user1, 'list_followers': user1.follows.all()})
+	return render(request, 'all_followers.html',context={'list': list_of_followers, 'user1':user1, 'list_followers': user1.follows.all()})
 
   
 def profile_page(request, username):
@@ -172,14 +191,27 @@ def profile_page(request, username):
 
 
 
+@login_required
+def like_tweet(request,tweet_id):
+	user1 = request.user
+	user = UserProfileInfo.objects.get(user= user1)
+	tweet_to_like = Tweet.objects.get(id= tweet_id)
+	tweet_to_like.liked_by.add(user)
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+@login_required
+def dislike_tweet(request,tweet_id):
+	user1 = request.user
+	user = UserProfileInfo.objects.get(user= user1)
+	tweet_to_dislike = Tweet.objects.get(id= tweet_id)
+	tweet_to_dislike.liked_by.remove(user)
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-
-
-
-
-
-
+def all_likes(request, tweet_id):
+	tweet = Tweet.objects.get(id= tweet_id)
+	all_likers = tweet.liked_by.all()
+	return render(request, 'all_tweets.html',context={'all_likers': all_likers})
 
 
 

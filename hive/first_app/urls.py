@@ -9,9 +9,11 @@ urlpatterns = [
 	path('edit_profile/', views.edit_page, name='edit_profile'),
 	path('profile_page/<username>/', views.profile_page, name='profile_page'),
 	path('all_users/', views.all_users, name='all_users'),
+	path('all_tweets/', views.all_tweets, name='all_tweets'),
 	path('follow_user/<username>/', views.follow_user, name='follow_user'),
 	path('unfollow_user/<username>/', views.unfollow_user, name='unfollow_user'),
 	path('all_followees/<username>/', views.all_followees, name='all_followees'),
 	path('all_followers/<username>/', views.all_followers, name='all_followers'),
-
+	path('like_tweet/<tweet_id>/', views.like_tweet, name='like_tweet'),
+	path('like_tweet/<tweet_id>/', views.all_likes, name='all_likes'),
 ]
