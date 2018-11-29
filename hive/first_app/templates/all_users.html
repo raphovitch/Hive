@@ -24,7 +24,7 @@
 	  			</div>
 	  			{% if user in list_followers %}
 	  			<div class="button-follow">
-					<a href="{% url 'first_app:follow_user' user.user.username%}" class="btn btn-primary btn-lg active " role="button" aria-pressed="true">UnFollow</a>
+					<a href="{% url 'first_app:unfollow_user' user.user.username%}" class="btn btn-primary btn-lg active " role="button" aria-pressed="true">UnFollow</a>
 				</div>
 				{% else %}
 
