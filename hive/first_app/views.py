@@ -25,30 +25,27 @@ def home(request):
 
 
 @login_required
-def publish_a_tweet(request, user_id):
+def publish_a_tweet(request):
 	
-	if not request.user.is_authenticated:
-		return HttpResponseNotFound("Not Found")
-	
-	else:
-		user = User.objects.get(id=user_id)
-		
-		if request.user.id == user_id:
-			form = NewTweetForm()
-			
-			if request.method == 'POST':
-				form = NewTweetForm(request.POST)
-				
-				if form.is_valid():
-					text = form.cleaned_data['text']
-					tweet = Tweet(text=text, user=user, date=datetime.datetime.now())
-					tweet.save()
-					return redirect('/first_app/homepage/{int:user_id}')
-				
-				else:
-					print('Error - form is unvalid')
+	user = request.user
+	userprofile = UserProfileInfo.objects.get(user=user)
 
-		return render(request, 'publish_a_tweet.html', context={'form': form, 'user': user})
+	if request.method == 'POST':
+		tweet_form = NewTweetForm(request.POST)
+		
+		if tweet_form.is_valid():
+			text = tweet_form.cleaned_data['text']
+			title = tweet_form.cleaned_data['title']
+			tweet = Tweet(title=title, text=text, user=userprofile, date=datetime.datetime.now())
+			tweet.save()
+			return redirect('/first_app/home')
+		
+		else:
+			print('Error - tweet_form is unvalid')
+	else:
+		tweet_form = NewTweetForm()
+
+	return render(request, 'publish_a_tweet.html', context={'tweet_form': tweet_form, 'user': user, 'logged_in': True})
 
 
 @login_required
