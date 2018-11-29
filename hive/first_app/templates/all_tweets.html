@@ -1,0 +1,46 @@
+{% extends 'base.html'%}
+{% block title %}Tweets{% endblock%}
+
+
+{% block content %}
+	<div style= "position:relative;right: -38%">
+	<h1>Here are all the Tweets : </h1>
+	</div>
+	<br>
+			
+	{% for tweet, like in my_list %}
+		
+
+		<div class="card border-info mx-auto" style="max-width: 50rem;">
+			
+			<div class="card-header"> 
+				tweet id : {{tweet.id}}
+			</div>
+
+			<div class="card-body">
+				<h5 class="card-title"> By {{tweet.user.user.username}} </h5>
+				<p> {{tweet.text}} </p>
+			</div>
+
+			{% if logged_in %}
+
+				{% if like %}
+					<div class="button-follow">
+						<a href="{% url 'first_app:dislike_tweet' tweet.id%}" class="btn btn-primary btn-lg active " role="button" aria-pressed="true">DisLike</a>
+					</div>
+
+				{% else %}
+					<div class="button-follow">
+						<a href="{% url 'first_app:like_tweet' tweet.id%}" class="btn btn-primary btn-lg active " role="button" aria-pressed="true">Like</a>
+					</div>
+
+				{% endif %}
+			{% endif %}
+
+		</div>
+		
+
+	{% endfor %}
+
+
+{% endblock %}

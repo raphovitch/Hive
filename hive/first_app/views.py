@@ -18,6 +18,15 @@ def gets_lasts_tweets(n=10):
 	lasts_tweets = Tweet.objects.all().order_by('-date')[:n]
 	return lasts_tweets
 
+def get_all_tweets():
+	all_tweets = Tweet.objects.all()
+	return all_tweets
+
+def get_all_likers(tweet_id):
+	tweet = Tweet.objects.get(id= tweet_id)
+	all_likers = tweet.liked_by.all()
+	return all_likers
+
 
 def get_tweets_of_user(profile_info_id):
 	tweets = Tweet.objects.filter(user=profile_info_id)
@@ -25,6 +34,35 @@ def get_tweets_of_user(profile_info_id):
 	return tweets
 
 # Create your views here.
+
+def all_tweets(request):
+	if request.user.is_authenticated:
+
+		user_p = UserProfileInfo.objects.get(user=request.user)
+		
+		tweets = [tweet for tweet in Tweet.objects.all()]
+
+		# This is for all likes
+		all_likes = []
+		for tweet in tweets:
+			if user_p in tweet.liked_by.all():
+				print(tweet)
+				all_likes.append(True)
+			else:
+				print(tweet)
+				all_likes.append(False)
+
+		# range_list = [index for index in range(len(all_likes))]
+		# print(range_list)
+
+		my_list = zip(tweets, all_likes)
+
+
+		return render(request, 'all_tweets.html',context={'my_list': my_list, 'user_p':user_p, 'logged_in': True, 'user': request.user})
+			
+
+	return render(request, 'all_tweets.html',context={'tweets': get_all_tweets(), 'logged_in': False,})
+
 
 def all_users(request):
 	if request.user.is_authenticated:
@@ -169,7 +207,7 @@ def all_followers(request,username):
 	list_of_all_users = UserProfileInfo.objects.exclude(user__username = username) 
 	list_of_followers = [user for user in list_of_all_users if user1 in user.follows.all()]
   
-  return render(request, 'all_followers.html',context={'list': list_of_followers, 'user1':user1, 'list_followers': user1.follows.all()})
+	return render(request, 'all_followers.html',context={'list': list_of_followers, 'user1':user1, 'list_followers': user1.follows.all()})
 
   
 def profile_page(request, username):
@@ -186,14 +224,23 @@ def profile_page(request, username):
 
 
 
+@login_required
+def like_tweet(request,tweet_id):
+	user1 = request.user
+	user = UserProfileInfo.objects.get(user= user1)
+	tweet_to_like = Tweet.objects.get(id= tweet_id)
+	tweet_to_like.liked_by.add(user)
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+@login_required
+def dislike_tweet(request,tweet_id):
+	user1 = request.user
+	user = UserProfileInfo.objects.get(user= user1)
+	tweet_to_dislike = Tweet.objects.get(id= tweet_id)
+	tweet_to_dislike.liked_by.remove(user)
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-
-
-
-
-
-
+	
 
 
 
