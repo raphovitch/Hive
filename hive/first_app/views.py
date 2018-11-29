@@ -9,11 +9,14 @@ from django.contrib.auth.models import User
 import datetime
 from django.contrib.auth.hashers import check_password, make_password
 
-# Create your views here.
-	
+
 def gets_lasts_tweets(n=10):
 	lasts_tweets = Tweet.objects.all().order_by('-date')[:n]
 	return lasts_tweets
+
+
+# Create your views here.
+	
 
 
 def home(request):
@@ -113,6 +116,17 @@ def edit_page(request):
 		})
 
 
+
+def profile_page(request, username):
+	profile_info = UserProfileInfo.objects.get(user__username=username)
+	print(profile_info.bio)
+	if request.user.is_authenticated:
+
+
+		return render(request, 'profile.html', {'logged_in': True, 'user': request.user, 'profile_info': profile_info})
+
+
+	return render(request, 'profile.html', {'logged_in': False, 'profile_info': profile_info})
 
 
 
