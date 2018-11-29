@@ -149,12 +149,9 @@ def all_followees(request,username):
 def all_followers(request,username):
 	user1 = UserProfileInfo.objects.get(user__username= username)
 	list_of_all_users = UserProfileInfo.objects.exclude(user__username = username)
-	list_of_followers = []
 
-	for user in list_of_all_users:
-		list_follows = user.follows.all()
-		if user1 in list_follows:
-			list_of_followers.append(user)
+	list_of_followers = [user for user in list_of_all_users if user1 in user.follows.all()]
+
 	return render(request, 'all_followers.html',context={'list': list_of_followers, 'user1':user1, 'list_followers': user1.follows.all()})
 
 
