@@ -77,9 +77,9 @@ def all_tweets(request):
 def all_users(request):
 	if request.user.is_authenticated:
 		user_p = UserProfileInfo.objects.get(user= request.user)
-		return render(request, 'all_users.html',context={'list': get_all_users(request.user.username), 'user_p':user_p, 'list_followers': user_p.follows.all()}) 
+		return render(request, 'all_users.html',context={'list': get_all_users(request.user.username), 'user_p':user_p, 'list_followers': user_p.follows.all(), 'logged_in': True, 'user': request.user}) 
 	else:
-		return render(request, 'all_users.html',context={'list': get_all_users(request.user.username)})
+		return render(request, 'all_users.html',context={'list': get_all_users(request.user.username), 'logged_in': False})
 
 
 def home(request):
@@ -168,12 +168,16 @@ def edit_page(request):
 		edit_form = ProfileEditForm(default_data, label_suffix=' : ')
 		password_form = PasswordEditForm(label_suffix=' : ')
 
-	return render(request, 'profile_edit.html', {
-			'edit_form': edit_form,
-			'form_error': form_error,
-			'password_form': password_form,
-			'password_error': password_error
-		})
+
+	if request.user.is_authenticated:
+		return render(request, 'profile_edit.html', {
+				'edit_form': edit_form,
+				'form_error': form_error,
+				'password_form': password_form,
+				'password_error': password_error,
+				'logged_in': True,
+				'user': request.user,
+			})
 
 
 @login_required
@@ -210,14 +214,20 @@ def unfollow_user(request, username):
 def all_followees(request, username):
 		user1 = UserProfileInfo.objects.get(user__username= username)
 		list_user_followees = user1.follows.all()
-		return render(request, 'all_followees.html',context={'list': list_user_followees, 'user1':user1})
+		if request.user.is_authenticated:
+			return render(request, 'all_followees.html',context={'list': list_user_followees, 'user1':user1, 'logged_in': True, 'user': request.user})
+
+		return render(request, 'all_followees.html',context={'list': list_user_followees, 'user1':user1, 'logged_in': False})
 
 def all_followers(request, username):
 	user1 = UserProfileInfo.objects.get(user__username= username)
 	list_of_all_users = UserProfileInfo.objects.exclude(user__username = username) 
 	list_of_followers = [user for user in list_of_all_users if user1 in user.follows.all()]
-  
-	return render(request, 'all_followers.html',context={'list': list_of_followers, 'user1':user1, 'list_followers': user1.follows.all()})
+	if request.user.is_authenticated:
+		return render(request, 'all_followers.html',context={'list': list_of_followers, 'user1':user1, 'list_followers': user1.follows.all(), 'logged_in': True, 'user': request.user})
+
+	return render(request, 'all_followers.html',context={'list': list_of_followers, 'user1':user1, 'list_followers': user1.follows.all(), 'logged_in': False})
+	
 
   
 def profile_page(request, username):

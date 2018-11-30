@@ -18,39 +18,39 @@
 					<a class="nav-link" href="{% url 'first_app:home' %}">Home</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Link</a>
+					<a class="nav-link" href="{% url 'first_app:feed_page'%}">My Feed</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'first_app:all_users'%}">All Users</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'first_app:all_tweets'%}">All Tweets</a>
 				</li>
 				{% if logged_in %}
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Dropdown
+							My Account
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="#">Action</a>
-							<a class="dropdown-item" href="#">Another action</a>
+							<a class="dropdown-item" href="{%url 'first_app:all_followers' user.username %}">My Followers</a>
+							<a class="dropdown-item" href="{%url 'first_app:all_followees' user.username %}">My Followees</a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#">Something else here</a>
+							<a class="dropdown-item" href="{% url 'first_app:edit_profile'%}">Edit Profile</a>
 						</div>
 					</li>
-
-					<li class="nav-item">
-						<a class="nav-link disabled" href="#">Disabled</a>
-					</li>
-					<div class="button-logout">
-						<a href="{% url 'login_app:logging_out' %}" class="btn btn-danger btn-lg active " role="button" aria-pressed="true">Logout</a>
-					</div>
+					
 					
 
 					{% if not user.userprofileinfo.profile_pic %}
-					<div class="button-signup inset">
-						<img src="{% static 'images/no-picture.png' %}" >
-					</div>
+						<div class="button-signup inset">
+							<img src="{% static 'images/no-picture.png' %}" >
+						</div>
 					{% else%}
-					<a href="{% url 'first_app:profile_page' username=user.username %}">
-					<div class="button-signup inset">
-					<img src="{{user.userprofileinfo.profile_pic.url}}" >
-					</div>
-					</a>
+						<a href="{% url 'first_app:profile_page' username=user.username %}">
+						<div class="button-signup inset">
+							<img src="{{user.userprofileinfo.profile_pic.url}}" >
+						</div>
+						</a>
 					{% endif %}
 
 				
@@ -58,6 +58,10 @@
 					<a href="{% url 'first_app:profile_page' username=user.username %}">
 					<p>{{user.username}} </p>
 					</a>
+				</div>
+
+				<div class="button-logout">
+					<a href="{% url 'login_app:logging_out' %}" class="btn btn-danger btn-lg active " role="button" aria-pressed="true">Logout</a>
 				</div>
 
 				{% else %}
