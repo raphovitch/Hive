@@ -59,9 +59,15 @@ def all_tweets(request):
 
 
 		return render(request, 'all_tweets.html',context={'my_list': my_list, 'user_p':user_p, 'logged_in': True, 'user': request.user})
-			
 
-	return render(request, 'all_tweets.html',context={'tweets': get_all_tweets(), 'logged_in': False,})
+	else:
+		tweets = [tweet for tweet in Tweet.objects.all()]
+		all_likes = [False for tweet in tweets]
+
+		my_list = zip(tweets, all_likes)
+
+
+	return render(request, 'all_tweets.html',context={'my_list': my_list, 'logged_in': False,})
 
 
 def all_users(request):
