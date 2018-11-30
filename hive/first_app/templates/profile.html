@@ -1,36 +1,62 @@
 {% extends 'base.html'%}
 {% block title %}Usename of User{% endblock%}
 
+
 {% block content %}
 <div class="profile_page">
 
 	<div class='profile_info'>
 		<h3 style='text-align: center; margin-top: 3%;'> {{ profile_info.user.username }} </h3>
 		<br>
-		
-		<br>
-		HERE THE BUTTON FOLLOW OR UNFOLLOW
+
+		{% if profile_info.user == user %}
+
+			<a href="{% url 'first_app:edit_profile'%}"><p class='settings'>Setting</p></a> 
+			<br>
+
+		{% else%}
+			<br>
+			<br>
+
+			{% if profile_info in following %}
+				<div class="button-follow center-button">
+					<a href="{% url 'first_app:unfollow_user' profile_info.user.username %}" class="btn btn-primary btn-lg active " role="button" aria-pressed="true">UnFollow</a>
+				</div>
+			{% else %}
+
+				<div class="button-follow center-button">
+					<a href="{% url 'first_app:follow_user' profile_info.user.username %}" class="btn btn-primary btn-lg active " role="button" aria-pressed="true">Follow</a>
+				</div>
+			{% endif %}		
+
+		{% endif%}
 
 		{% if not profile_info.profile_pic %}
 			<img src="/static/images/no-picture.png">
 		{% else %}
-			<img src="{{user.userprofileinfo.profile_pic.url}}">
+			<img src="{{profile_info.profile_pic.url}}">
 		{% endif %}
+
+
 		<br>
 		<div class='profile-bio'>
 			{{ profile_info.bio}}
 		</div>
 
 		<br>
-		Here we are going to put his followers
-		<br>
-		<br>
-		Here we are going to put the guys that he is following.
+		<a href="{% url 'first_app:all_followers' profile_info.user.username %}"><p class="follow-link">Followers</p></a> 
+		
+		<a href="{% url 'first_app:all_followees' profile_info.user.username %}"><p class="follow-link">Followees</p></a>
 
 
 	</div>
 
 	<div class='tweets_user'>
+		{% if tweets|length == 0 %}
+			<br>
+			<h3 style="text-align: center">This user has no tweets</h3>  
+		{% endif %}
+
 		{% for tweet in tweets %}
 
 		<div class="card border-info mx-auto" style="max-width: 50rem;">

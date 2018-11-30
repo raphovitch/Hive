@@ -8,7 +8,7 @@
 	</div>
 	<br>
 			
-	{% for tweet, like in my_list %}
+	{% for tweet, like, likers in my_list %}
 		
 
 		<div class="card border-info mx-auto" style="max-width: 50rem;">
@@ -35,6 +35,13 @@
 				</div>
 
 			{% endif %}
+
+			<div class='all_likes'>
+				{% for liker in likers%}
+					{{liker.user.username}}
+					<br>
+				{% endfor%}
+			</div>
 
 			
 			
