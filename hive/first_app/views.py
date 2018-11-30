@@ -44,6 +44,7 @@ def all_tweets(request):
 
 		# This is for all likes
 		all_likes = []
+		all_likers = []
 		for tweet in tweets:
 			if user_p in tweet.liked_by.all():
 				print(tweet)
@@ -51,11 +52,14 @@ def all_tweets(request):
 			else:
 				print(tweet)
 				all_likes.append(False)
+			all_likers.append(get_all_likers(tweet.id))
+
+
 
 		# range_list = [index for index in range(len(all_likes))]
 		# print(range_list)
 
-		my_list = zip(tweets, all_likes)
+		my_list = zip(tweets, all_likes, all_likers)
 
 
 		return render(request, 'all_tweets.html',context={'my_list': my_list, 'user_p':user_p, 'logged_in': True, 'user': request.user})
@@ -219,10 +223,13 @@ def all_followers(request, username):
 def profile_page(request, username):
 	profile_info = UserProfileInfo.objects.get(user__username=username)
 	profile_info_id = profile_info.user.id 
-	print(profile_info.bio)
-
+	
 	if request.user.is_authenticated:
-		return render(request, 'profile.html', {'logged_in': True, 'user': request.user, 'profile_info': profile_info, 'tweets': get_tweets_of_user(profile_info_id)})
+		# following = False
+		# if profile_info in :
+		# 	following = True
+
+		return render(request, 'profile.html', {'logged_in': True, 'user': request.user, 'profile_info': profile_info, 'tweets': get_tweets_of_user(profile_info_id), 'following': UserProfileInfo.objects.get(user=request.user).follows.all()})
 
 
 	return render(request, 'profile.html', {'logged_in': False, 'profile_info': profile_info, 'tweets': get_tweets_of_user(profile_info_id)})

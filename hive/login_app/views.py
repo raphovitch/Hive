@@ -57,6 +57,9 @@ def signup(request):
 			
 			profile.save()
 			registered = True
+			login(request, user)
+			return redirect('/first_app/home/', permanent=False)
+
 
 
 		else : 

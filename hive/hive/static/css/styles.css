@@ -158,6 +158,42 @@
 }
 
 
+.all_likes {
+	overflow: scroll;
+    max-height: 15%;
+    border: red solid 2px;
+    margin: 5%;
+    background-color: aliceblue;
+
+}
+
+.center-button {
+	position: relative;
+    left: 38%;
+    bottom: 50px;
+}
+
+.follow-link {
+	text-align: center;
+	color: grey;
+}
+
+.follow-link:hover {
+	color: red;
+	font-size:150%;
+	text-decoration: orange;
+}
+
+
+
+.settings {
+	text-align: center;
+	color: grey;
+}
+
+
+
+
 
 
 
