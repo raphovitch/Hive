@@ -19,7 +19,7 @@
 				    	{{tweet.text}}	
 					</h5>
 				    <p class="card-text">Tweet Date : {{tweet.date}} </p>
-					By {{tweet.user.user.username}} 
+					By <a href="{% url 'first_app:profile_page' username=tweet.user.user.username %}"> {{tweet.user.user.username}} </a>
 	  			</div>
 			</div>
 

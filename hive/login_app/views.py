@@ -24,7 +24,7 @@ def log_in(request):
 			if user is not None:
 				login(request, user)
 				print('Logged In: {}'.format(user))
-				return redirect('/first_app/home/', permanent=False)
+				return redirect('/first_app/feed_page/', permanent=False)
 				
 			else:
 				errors = True

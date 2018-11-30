@@ -39,17 +39,25 @@
 					<div class="button-logout">
 						<a href="{% url 'login_app:logging_out' %}" class="btn btn-danger btn-lg active " role="button" aria-pressed="true">Logout</a>
 					</div>
-					<div class="button-signup inset">
+					
 
 					{% if not user.userprofileinfo.profile_pic %}
+					<div class="button-signup inset">
 						<img src="{% static 'images/no-picture.png' %}" >
+					</div>
 					{% else%}
+					<a href="{% url 'first_app:profile_page' username=user.username %}">
+					<div class="button-signup inset">
 					<img src="{{user.userprofileinfo.profile_pic.url}}" >
+					</div>
+					</a>
 					{% endif %}
 
-				</div>
+				
 				<div class="user-profile">
+					<a href="{% url 'first_app:profile_page' username=user.username %}">
 					<p>{{user.username}} </p>
+					</a>
 				</div>
 
 				{% else %}
