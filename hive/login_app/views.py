@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from . import forms
-from PIL import Image
+from first_app.views import home
 # from django.contrib.auth.models import AnonymousUser
 
 
@@ -21,7 +21,8 @@ def log_in(request):
 			if user is not None:
 				login(request, user)
 				print('Logged In: {}'.format(user))
-				return redirect('/first_app/home/', permanent=True)
+				return redirect('/first_app/home/', permanent=False)
+				
 			else:
 				errors = True
 	else:
