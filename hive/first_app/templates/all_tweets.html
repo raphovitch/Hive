@@ -24,17 +24,19 @@
 
 			
 
-				{% if like %}
-					<div class="button-follow">
-						<a href="{% url 'first_app:dislike_tweet' tweet.id%}"> <img class ="like-button" src="{% static 'images/like_button.png' %}"> <role="button" aria-pressed="true"></a>
-					</div>
+			{% if like %}
+				<div class="button-follow">
+					<a href="{% url 'first_app:dislike_tweet' tweet.id%}"> <img class ="like-button" src="{% static 'images/like_button.png' %}"> <role="button" aria-pressed="true"></a>
+				</div>
 
-				{% else %}
-					<div class="button-follow">
-						<a href="{% url 'first_app:like_tweet' tweet.id%}"> <img class ="like-button" src="{% static 'images/not_like_button.png' %}"> <role="button" aria-pressed="true"></a>
-					</div>
+			{% else %}
+				<div class="button-follow">
+					<a href="{% url 'first_app:like_tweet' tweet.id%}"> <img class ="like-button" src="{% static 'images/not_like_button.png' %}"> <role="button" aria-pressed="true"></a>
+				</div>
 
-				{% endif %}
+			{% endif %}
+
+			
 			
 
 		</div>

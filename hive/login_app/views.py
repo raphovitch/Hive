@@ -11,6 +11,9 @@ from first_app.views import home
  
 
 def log_in(request):
+	if request.user.is_authenticated:
+		return redirect('/first_app/home/', permanent=False)
+
 	errors = False
 	if request.method == 'POST':
 		login_form = forms.LoginForm(request.POST)
@@ -33,6 +36,9 @@ def log_in(request):
 			'errors': errors,})
 
 def signup(request):
+	if request.user.is_authenticated:
+		return redirect('/first_app/home/', permanent=False)
+
 	registered = False
 	if request.method =='POST':
 		user_form = forms.UserForm(data= request.POST) 
