@@ -1,7 +1,7 @@
 {% extends 'base.html'%}
 {% block title %}Tweets{% endblock%}
 
-
+{% load staticfiles %}
 {% block content %}
 	<div style= "position:relative;right: -38%">
 	<h1>Here are all the Tweets : </h1>
@@ -26,12 +26,12 @@
 
 				{% if like %}
 					<div class="button-follow">
-						<a href="{% url 'first_app:dislike_tweet' tweet.id%}" class="btn btn-primary btn-lg active " role="button" aria-pressed="true">DisLike</a>
+						<a href="{% url 'first_app:dislike_tweet' tweet.id%}"> <img class ="like-button" src="{% static 'images/like_button.png' %}"> <role="button" aria-pressed="true"></a>
 					</div>
 
 				{% else %}
 					<div class="button-follow">
-						<a href="{% url 'first_app:like_tweet' tweet.id%}" class="btn btn-primary btn-lg active " role="button" aria-pressed="true">Like</a>
+						<a href="{% url 'first_app:like_tweet' tweet.id%}"> <img class ="like-button" src="{% static 'images/not_like_button.png' %}"> <role="button" aria-pressed="true"></a>
 					</div>
 
 				{% endif %}
