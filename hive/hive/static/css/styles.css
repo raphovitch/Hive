@@ -12,24 +12,36 @@
 
 }
 
-.button-login {
-	position: relative;
-	left : 430%;
-}
 
-.button-signup {
-	position: relative;
-	left : 355%;
-}
 
 .btn-danger {
 	background-color: #ffd32a !important;
 }
 
+.bloc-user{
+	width: 500px;
+	height: 70px;
+	position: relative;
+	left: 80%;
+}
+
+.button-login {
+	position: relative;
+	left : 220px;
+	top: 10px;
+}
+
+.button-signup {
+	position: relative;
+	left : 350px;
+	bottom: 38px;
+}
+
 .inset {
 	width: 55px;
 	position: relative;
-	left:670px;
+	left :150px;
+	top : 6px;
 	height: 55px;
 	border-radius: 50%;
 	box-shadow:
@@ -50,15 +62,17 @@
 
 .user-profile {
 	position: relative;
-	left: 690px;
-	top: 15px;
+	left: 220px;
+	bottom: 32px;
 }
 
 .button-logout{
 	position: relative;
-	left: 105%;
-	top: 5px;
+	left: 360px;
+	bottom: 85px;
 }
+
+
 
 /* For the message of error in the edit profile page for a username that is already existing. */
 .form_username_exists p {

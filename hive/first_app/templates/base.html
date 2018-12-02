@@ -39,9 +39,11 @@
 						</div>
 					</li>
 					
-					
-
+					<li class="nav-item">
+				
+					<div class = "bloc-user ">
 					{% if not user.userprofileinfo.profile_pic %}
+
 						<div class="button-signup inset">
 							<img src="{% static 'images/no-picture.png' %}" >
 						</div>
@@ -52,27 +54,33 @@
 						</div>
 						</a>
 					{% endif %}
+					
+					<div class="user-profile">
+						<a href="{% url 'first_app:profile_page' username=user.username %}">
+						<p>{{user.username}} </p>
+						</a>
+					</div>
+
+					<div class="button-logout">
+						<a href="{% url 'login_app:logging_out' %}" class="btn btn-danger btn-lg active " role="button" aria-pressed="true">Logout</a>
+					</div>
+				</div>
+				</li>
 
 				
-				<div class="user-profile">
-					<a href="{% url 'first_app:profile_page' username=user.username %}">
-					<p>{{user.username}} </p>
-					</a>
-				</div>
-
-				<div class="button-logout">
-					<a href="{% url 'login_app:logging_out' %}" class="btn btn-danger btn-lg active " role="button" aria-pressed="true">Logout</a>
-				</div>
 
 				{% else %}
 				
-				<div class="button-login">
-					<a href="{% url 'login_app:loginpage' %}" class="btn btn-danger btn-lg active " role="button" aria-pressed="true">Login</a>
+				<div class = "bloc-user ">
+				
+					<div class="button-login">
+						<a href="{% url 'login_app:loginpage' %}" class="btn btn-danger btn-lg active " role="button" aria-pressed="true">Login</a>
+					</div>
+					<div class="button-signup">
+						<a href="{% url 'login_app:signup' %}" class="btn btn-danger btn-lg active " role="button" aria-pressed="true">Sign up</a>
+					</div>
+				
 				</div>
-				<div class="button-signup">
-					<a href="{% url 'login_app:signup' %}" class="btn btn-danger btn-lg active " role="button" aria-pressed="true">Sign up</a>
-				</div>
-			
 				
 				{% endif %}	
 			</ul>
