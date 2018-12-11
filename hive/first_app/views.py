@@ -104,14 +104,14 @@ def publish_a_tweet(request):
 			title = tweet_form.cleaned_data['title']
 			tweet = Tweet(title=title, text=text, user=userprofile, date=datetime.datetime.now())
 			tweet.save()
-			return redirect('/first_app/home')
+			return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 		
 		else:
 			print('Error - tweet_form is unvalid')
 	else:
 		tweet_form = NewTweetForm()
 
-	return render(request, 'publish_a_tweet.html', context={'tweet_form': tweet_form, 'user': user, 'logged_in': True})
+	return render(request, 'publish_a_tweet.html', context={'tweet_form': tweet_form, 'user': user, 'logged_in': True, 'list': gets_lasts_tweets()})
 
 
 @login_required
